@@ -1,0 +1,29 @@
+﻿@model Quiz.Application.DTOs.QuestionDTO
+
+<h1>Lista de perguntas</h1>
+
+<form method="post">
+	<input asp-for="Id" hidden/>
+	<thead>
+		<tr>
+			<th></th>
+			<th>Tema</th>
+			<th>Descrição</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>
+				<input disabled type="checkbox" />
+			</th>
+			<input asp-for="Id" type="text" value="@Model.Id" disabled/>
+			<input asp-for="Description" type="text" value="@Model.Description" disabled/>
+			<textarea asp-for="Answer"></textarea>
+			<th>
+				<button type="submit">Enviar</button>
+			</th>
+		</tr>
+
+	</tbody>
+</form>
