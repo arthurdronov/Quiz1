@@ -3,7 +3,6 @@ using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
 using Quiz.Domain.Entities;
 using Quiz.Domain.Interfaces;
-using System.Xml.Schema;
 
 namespace Quiz.Application.Services
 {
@@ -48,23 +47,23 @@ namespace Quiz.Application.Services
             await _questionRepository.UpdateAsync(questionEntity);
         }
 
-		public async Task<bool> VerificaResposta(int? id, string answer)
-		{
+        public async Task<bool> VerificaResposta(int? id, string answer)
+        {
             var obj = await _questionRepository.GetByIdAsync(id);
-			bool OkAnswer = false;
-            if(id == null || id == 0)
+            bool OkAnswer = false;
+            if (id == null || id == 0)
             {
                 throw new Exception("id invalido");
             }
-			if (string.IsNullOrEmpty(answer))
-			{
-				throw new Exception("string invalida");
-			}
-			if (obj.Answer.ToLower() == answer.ToLower())
-			{
-				OkAnswer = true;
-			}
-			return OkAnswer;
-		}
-	}
+            if (string.IsNullOrEmpty(answer))
+            {
+                return OkAnswer;
+            }
+            if (obj.Answer.ToLower() == answer.ToLower())
+            {
+                OkAnswer = true;
+            }
+            return OkAnswer;
+        }
+    }
 }

@@ -3,27 +3,19 @@
 <h1>Lista de perguntas</h1>
 
 <form method="post">
-	<input asp-for="Id" hidden/>
-	<thead>
-		<tr>
-			<th></th>
-			<th>Tema</th>
-			<th>Descrição</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<th>
-				<input disabled type="checkbox" />
-			</th>
-			<input asp-for="Id" type="text" value="@Model.Id" disabled/>
-			<input asp-for="Description" type="text" value="@Model.Description" disabled/>
-			<textarea asp-for="Answer"></textarea>
-			<th>
-				<button type="submit">Enviar</button>
-			</th>
-		</tr>
+	<input asp-for="Id" hidden />
+	<input asp-for="Description" hidden />
+	<div class="mb-3">
+		<label asp-for="Description"></label>
+		<textarea asp-for="Description" class="form-control" value="@Model.Description" disabled></textarea>
 
-	</tbody>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Answer"></label>
+		<input type="text" class="form-control" asp-for="Answer"/>
+
+	</div>
+
+	<button class="btn btn-secondary" onclick="displayAlert()" type="submit">Enviar</button>
+
 </form>

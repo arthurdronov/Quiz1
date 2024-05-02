@@ -22,5 +22,6 @@ namespace Quiz.Application.DTOs
 		[MinLength(4)]
 		[MaxLength(20)]
 		public string Theme { get; set; }
+		public bool? Resolved { get; set; }
 	}
 }

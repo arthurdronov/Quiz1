@@ -8,7 +8,8 @@ namespace Quiz.Application.Mappings
     {
         public DomainToDtoMappingProfile()
         {
-            CreateMap<Question, QuestionDTO>().ReverseMap();
+            CreateMap<Question, QuestionDTO>().ForMember(p=>p.Answer, x=>x.Ignore()).ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }

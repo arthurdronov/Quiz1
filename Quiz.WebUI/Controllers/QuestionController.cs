@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
-using Quiz.Domain.Entities;
 
 namespace Quiz.WebUI.Controllers
 {
@@ -25,7 +24,7 @@ namespace Quiz.WebUI.Controllers
 		}
 		[HttpPost, ActionName("Answer")]
 		public async Task<IActionResult> Answer(QuestionDTO question)
-{
+		{
 
 			var result = _questionService.VerificaResposta(question.Id, question.Answer).Result;
 			if (question == null)
@@ -34,9 +33,11 @@ namespace Quiz.WebUI.Controllers
 			}
 			if (!result)
 			{
+				question.Resolved = false;
 				return View(question);
 			}
-			TempData["success"] = "Nice!";
+			question.Resolved = true;
+			TempData["success"] = "Right answer, Nice!";
 			return RedirectToAction("Index");
 		}
 	}
