@@ -31,7 +31,15 @@ namespace Quiz.WebUI.Controllers
         [HttpPost, ActionName("Create")]
 		public async Task<IActionResult> Create(User user)
 		{
+            if(user == null)
+            {
+                return View(user);
+            }
             var userDTO = _mapper.Map<UserDTO>(user);
+            if(userDTO == null)
+            {
+                return View(user);
+            }
             await _userService.Add(userDTO);
 
             TempData["success"] = "Usuário criado com sucesso";
