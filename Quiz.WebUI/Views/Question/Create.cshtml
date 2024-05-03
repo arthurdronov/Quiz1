@@ -1,0 +1,22 @@
+﻿@model Quiz.Application.DTOs.QuestionDTO
+
+<h1>Create question</h1>
+
+<form method="post">
+	<div class="mb-3">
+		<label asp-for="Description"></label>
+		<input type="text" asp-for="Description" />
+	</div>
+
+	<div class="mb-3">
+		<label asp-for="Answer"></label>
+		<input type="text" asp-for="Answer" />
+	</div>
+
+	<div class="mb-3">
+		<label asp-for="Theme"></label>
+		<input type="text" asp-for="Theme" />
+	</div>
+
+	<button type="submit">Create</button>
+</form>

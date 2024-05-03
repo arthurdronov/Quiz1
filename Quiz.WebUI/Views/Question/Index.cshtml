@@ -2,6 +2,8 @@
 
 <h1>Lista de perguntas</h1>
 
+<a class="btn btn-secondary" asp-action="Create" asp-controller="Question">Create question</a>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -18,11 +20,11 @@
 				<th>
 					<input disabled type="checkbox"/>
 				</th>
-				<th>@obj.Theme</th>
-				<th>@obj.Description</th>
-				<th>
+				<td>@obj.Theme</td>
+				<td>@obj.Description</td>
+				<td>
 					<a role="button" asp-route-id="@obj.Id" asp-action="Answer" asp-controller="Question" class="btn btn-secondary">Responder</a>
-				</th>
+				</td>
 			</tr>
 		}
 

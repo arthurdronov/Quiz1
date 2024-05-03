@@ -10,11 +10,9 @@ namespace Quiz.WebUI.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-			_mapper = mapper;
         }
         
         public async Task<IActionResult> Index()
@@ -29,18 +27,17 @@ namespace Quiz.WebUI.Controllers
 		}
 
         [HttpPost, ActionName("Create")]
-		public async Task<IActionResult> Create(User user)
+		public async Task<IActionResult> Create(UserDTO user)
 		{
             if(user == null)
             {
                 return View(user);
             }
-            var userDTO = _mapper.Map<UserDTO>(user);
-            if(userDTO == null)
+            if(user == null)
             {
                 return View(user);
             }
-            await _userService.Add(userDTO);
+            await _userService.Add(user);
 
             TempData["success"] = "Usuário criado com sucesso";
 			return RedirectToAction("Index");

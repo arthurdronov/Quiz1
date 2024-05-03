@@ -11,7 +11,7 @@ namespace Quiz.Application.DTOs
 	{
 		public int Id { get; set; }
 		[Required(ErrorMessage = "Question is Required")]
-		[MinLength(8)]
+		[MinLength(1)]
 		[MaxLength(150)]
 		public string Description { get; set; }
 		[Required(ErrorMessage = ("Answer is Required"))]
@@ -19,9 +19,8 @@ namespace Quiz.Application.DTOs
 		[MaxLength(100)]
 		public string Answer { get; set; }
 		[Required(ErrorMessage = "Theme is Required")]
-		[MinLength(4)]
+		[MinLength(1)]
 		[MaxLength(20)]
 		public string Theme { get; set; }
-		public bool? Resolved { get; set; }
 	}
 }
