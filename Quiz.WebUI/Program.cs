@@ -1,4 +1,7 @@
 using Quiz.Infra.IoC;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Quiz.Infra.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Quiz.Domain.Entities
 {
@@ -21,5 +22,5 @@ namespace Quiz.Domain.Entities
 			Answer = answer;
 			Theme = theme;
 		}
-	}
+    }
 }

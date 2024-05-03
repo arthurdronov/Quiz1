@@ -1,0 +1,25 @@
+﻿@model Quiz.Application.DTOs.QuestionDTO
+
+<h1>Delete category</h1>
+
+<form method="post">
+
+	<div class="mb-3">
+		<label asp-for="Id"></label>
+		<input asp-for="Id" class="form-control" disabled />
+	</div>
+	<div class="mb-3">
+		<label asp-for="Theme"></label>
+		<input asp-for="Theme" class="form-control" disabled />
+	</div>
+	<div class="mb-3">
+		<label asp-for="Description"></label>
+		<input asp-for="Description" class="form-control" disabled />
+	</div>
+	<div class="mb-3">
+		<label asp-for="Answer"></label>
+		<input asp-for="Answer" class="form-control" disabled />
+	</div>
+
+	<button type="submit" class="btn btn-danger">Delete</button>
+</form>

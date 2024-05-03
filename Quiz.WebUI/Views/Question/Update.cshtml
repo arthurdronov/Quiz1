@@ -1,0 +1,23 @@
+﻿@model Quiz.Application.DTOs.QuestionDTO
+
+<h1>Edit question</h1>
+
+<form method="post">
+	<div class="mb-3">
+		<label asp-for="Theme"></label>
+		<input asp-for="Theme" class="form-control"/>
+		<span asp-validation-for="Theme" class="text-danger"></span>
+	</div>
+		<div class="mb-3">
+		<label asp-for="Description"></label>
+		<input asp-for="Description" class="form-control"/>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Answer"></label>
+		<input asp-for="Answer" class="form-control" />
+		<span asp-validation-for="Answer" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-dark">Save changes</button>
+</form>

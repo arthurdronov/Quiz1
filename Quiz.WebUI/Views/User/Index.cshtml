@@ -10,15 +10,21 @@
 			<th>Id</th>
 			<th>Name</th>
 			<th>Age</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach(var obj in Model)
 		{
+			<input asp-for="@obj.Id" hidden/>
 			<tr>
 				<td>@obj.Id</td>
 				<td>@obj.Name</td>
 				<td>@obj.Age</td>
+				<td>
+					<a role="button" asp-route-id="@obj.Id" asp-action="Update" asp-controller="User" class="btn btn-dark">Edit</a>
+					<a role="button" asp-route-id="@obj.Id" asp-action="Delete" asp-controller="User" class="btn btn-danger">Delete</a>
+				</td>
 			</tr>
 		}
 	</tbody>

@@ -1,19 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
-using Quiz.Domain.Entities;
 
 namespace Quiz.WebUI.Controllers
 {
 	public class QuestionController : Controller
 	{
 		private readonly IQuestionService _questionService;
-		private readonly IMapper _mapper;
-		public QuestionController(IQuestionService questionService, IMapper mapper)
+		public QuestionController(IQuestionService questionService)
 		{
 			_questionService = questionService;
-			_mapper = mapper;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Index()
@@ -35,24 +31,67 @@ namespace Quiz.WebUI.Controllers
 		public async Task<IActionResult> Answer(int? id)
 		{
 			var result = await _questionService.GetById(id);
+			result.Answer = null;
 			return View(result);
 		}
 		[HttpPost, ActionName("Answer")]
 		public async Task<IActionResult> Answer(QuestionDTO questionDTO)
 		{
-
-			var result = _questionService.VerificaResposta(questionDTO.Id, questionDTO.Answer).Result;
-			if (questionDTO == null)
+			try
 			{
-				return View(questionDTO);
+				var result = await _questionService.VerificaResposta(questionDTO.Id, questionDTO.Answer);
+				if (questionDTO == null)
+				{
+					return View(questionDTO);
+				}
+				if (!result)
+				{
+					TempData["error"] = "Wrong answer, try again";
+					return View(questionDTO);
+				}
+				TempData["success"] = "Right answer, Nice!";
+				return RedirectToAction("Index");
 			}
-			if (!result)
+			catch
 			{
-				TempData["error"] = "Wrong answer, try again";
-				return View(questionDTO);
+				return NotFound();
 			}
-			TempData["success"] = "Right answer, Nice!";
+		}
+		[HttpGet]
+		public async Task<IActionResult> Update(int? id)
+		{
+			var question = await _questionService.GetById(id);
+			return View(question);
+		}
+		[HttpPost]
+		public async Task<IActionResult> Update(QuestionDTO questionDTO)
+		{
+			await _questionService.Update(questionDTO);
+			TempData["success"] = "Question updated successfuly";
 			return RedirectToAction("Index");
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			var question = await _questionService.GetById(id);
+			return View(question);
+		}
+		[HttpPost, ActionName("Delete")]
+		public async Task<IActionResult> DeletePOST(int? id)
+		{
+			try
+			{
+				if(id != null && id > 0)
+				await _questionService.Remove(id);
+				TempData["success"] = "Question deleted successfuly";
+				return RedirectToAction("Index");
+			}
+			catch
+			{
+				return NotFound();
+			}
+
 		}
 	}
 }

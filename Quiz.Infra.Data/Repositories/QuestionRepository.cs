@@ -23,6 +23,7 @@ namespace Quiz.Infra.Data.Repositories
 
 		public async Task<Question> GetByIdAsync(int? id)
 		{
+
 			return await _questionContext.Questions.FindAsync(id);
 		}
 
