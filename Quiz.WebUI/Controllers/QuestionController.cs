@@ -24,9 +24,24 @@ namespace Quiz.WebUI.Controllers
 		[HttpPost, ActionName("Create")]
 		public async Task<IActionResult> Create(QuestionDTO questionDTO)
 		{
-			var result = _questionService.Add(questionDTO);
-			TempData["success"] = "Question created successfuly";
-			return RedirectToAction("Index");
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					await _questionService.Add(questionDTO);
+
+					TempData["success"] = "Question created successfuly";
+					return RedirectToAction("Index");
+				}
+				TempData["error"] = "Error create question";
+				return View(questionDTO);
+			}
+			catch(Exception error)
+			{
+				TempData["error"] = $"Error question create {error.Message}";
+				return View(questionDTO);
+			}
+
 		}
 		public async Task<IActionResult> Answer(int? id)
 		{
@@ -52,9 +67,9 @@ namespace Quiz.WebUI.Controllers
 				TempData["success"] = "Right answer, Nice!";
 				return RedirectToAction("Index");
 			}
-			catch
+			catch(Exception error)
 			{
-				return NotFound();
+				return View($"Error question answer {error.Message}");
 			}
 		}
 		[HttpGet]
@@ -66,9 +81,22 @@ namespace Quiz.WebUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Update(QuestionDTO questionDTO)
 		{
-			await _questionService.Update(questionDTO);
-			TempData["success"] = "Question updated successfuly";
-			return RedirectToAction("Index");
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					await _questionService.Update(questionDTO);
+					TempData["success"] = "Question updated successfuly";
+					return RedirectToAction("Index");
+				}
+				TempData["error"] = "Error question update";
+				return View(questionDTO);
+			}
+			catch(Exception error)
+			{
+				TempData["error"] = $"Error question update: {error.Message}";
+				return View(questionDTO);
+			}
 		}
 
 		[HttpGet]
@@ -82,14 +110,20 @@ namespace Quiz.WebUI.Controllers
 		{
 			try
 			{
-				if(id != null && id > 0)
-				await _questionService.Remove(id);
-				TempData["success"] = "Question deleted successfuly";
-				return RedirectToAction("Index");
+				if (ModelState.IsValid)
+				{
+					if (id != null && id > 0)
+						await _questionService.Remove(id);
+					TempData["success"] = "Question deleted successfuly";
+					return RedirectToAction("Index");
+				}
+				TempData["error"] = "Error for delete a question";
+				return View();
 			}
-			catch
+			catch(Exception error)
 			{
-				return NotFound();
+				TempData["error"] = $"Error question delete: {error.Message}";
+				return View();
 			}
 
 		}

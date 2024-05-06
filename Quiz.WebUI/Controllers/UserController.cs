@@ -32,19 +32,21 @@ namespace Quiz.WebUI.Controllers
         {
             try
             {
-				if (user == null)
+				if (ModelState.IsValid)
 				{
-					return View(user);
+					await _userService.Add(user);
+
+					TempData["success"] = "Usuário criado com sucesso";
+					return RedirectToAction("Index");
 				}
 
-				await _userService.Add(user);
-
-				TempData["success"] = "Usuário criado com sucesso";
-				return RedirectToAction("Index");
+				TempData["error"] = "Error for create a user";
+				return View(user);
 			}
             catch
             {
-                return View(user);
+				TempData["error"] = "Error for create a user";
+				return View(user);
             }
 		}
 

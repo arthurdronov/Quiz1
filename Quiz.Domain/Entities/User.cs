@@ -1,4 +1,5 @@
-﻿using Quiz.Domain.Validation;
+﻿using Quiz.Domain.Enums;
+using Quiz.Domain.Validation;
 
 namespace Quiz.Domain.Entities
 {
@@ -6,6 +7,12 @@ namespace Quiz.Domain.Entities
 	{
 		public string Name { get; set; }
 		public int Age { get; set; }
+		public string Login { get; set; }
+		public string Email { get; set; }
+		public PerfilEnum Perfil { get; set; }
+		public string Password { get; set; }
+		public DateTime DataCadastro { get; set; }
+		public DateTime? DataAtualizacao { get; set; }
 
 		public User(string name, int age)
 		{
@@ -21,6 +28,11 @@ namespace Quiz.Domain.Entities
 			Age = age;
 		}
 
+        public User()
+        {
+            
+        }
+
         public void VerificarModel(int id, string name, int age)
 		{
 			DomainExceptionValidation.When(id < 0, "Invalid Id value");
@@ -28,7 +40,6 @@ namespace Quiz.Domain.Entities
 			DomainExceptionValidation.When(age < 3, "Minimum age is required");
 			DomainExceptionValidation.When(age > 120, "Age has not a valid value");
 			DomainExceptionValidation.When(age < 0, "Age has not a valid value");
-
 		}
 		public void VerificarModel(string name, int age)
 		{
