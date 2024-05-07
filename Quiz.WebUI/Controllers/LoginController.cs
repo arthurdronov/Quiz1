@@ -27,7 +27,7 @@ namespace Quiz.WebUI.Controllers
 
                     if (user != null)
                     {
-                        if (_loginService.IsUserValid(loginDTO.Login, loginDTO.Password))
+                        if (await _loginService.IsUserValid(loginDTO.Login, loginDTO.Password))
                         {
 
                             return RedirectToAction("Index", "Home");
