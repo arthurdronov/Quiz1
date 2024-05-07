@@ -53,7 +53,7 @@ namespace Quiz.Application.Services
             bool OkAnswer = false;
             if (id == null || id == 0)
             {
-                throw new Exception("id invalido");
+                throw new Exception("Invalid Id value");
             }
             if (string.IsNullOrEmpty(answer))
             {

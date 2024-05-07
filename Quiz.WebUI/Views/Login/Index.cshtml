@@ -1,0 +1,23 @@
+﻿@model Quiz.Application.DTOs.LoginDTO
+
+@{
+	Layout = "_LayoutDeslogado";
+	ViewData["Title"] = "Login";
+}
+
+<p>Tela de login</p>
+
+<form method="post" asp-action="Entrar" asp-controller="Login">
+    <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input type="text" asp-for="Login" class="form-control" id="login">
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" asp-for="Password" class="form-control" id="password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enter</button>
+</form>

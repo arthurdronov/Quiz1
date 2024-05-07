@@ -75,8 +75,20 @@ namespace Quiz.WebUI.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Update(int? id)
 		{
-			var question = await _questionService.GetById(id);
-			return View(question);
+			try
+			{
+                var question = await _questionService.GetById(id);
+				if(question == null)
+				{
+					return NotFound();
+				}
+                return View(question);
+            }
+			catch
+			{
+				return NotFound();
+			}
+
 		}
 		[HttpPost]
 		public async Task<IActionResult> Update(QuestionDTO questionDTO)

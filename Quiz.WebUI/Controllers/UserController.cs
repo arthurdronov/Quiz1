@@ -53,25 +53,40 @@ namespace Quiz.WebUI.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Update(int? id)
 		{
-			var user = await _userService.GetById(id);
-			return View(user);
+			try
+			{
+                var user = await _userService.GetById(id);
+				if(user == null)
+				{
+					return NotFound();
+				}
+                return View(user);
+            }
+			catch
+			{
+
+				return NotFound();
+			}
+
 		}
 		[HttpPost]
 		public async Task<IActionResult> Update(UserDTO userDTO)
 		{
 			try
 			{
-				if(userDTO == null)
+				if (ModelState.IsValid)
 				{
-					return NotFound();
-				}
-				await _userService.Update(userDTO);
-				TempData["success"] = "User updated successfuly";
-				return RedirectToAction("Index");
+                    await _userService.Update(userDTO);
+                    TempData["success"] = "User updated successfuly";
+                    return RedirectToAction("Index");
+                }
+                TempData["error"] = "Error edit a user";
+                return View(userDTO);
 			}
 			catch
 			{
-				return View(userDTO);
+                TempData["error"] = "Error edit a user";
+                return View(userDTO);
 			}
 
 		}

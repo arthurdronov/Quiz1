@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<Quiz.Application.DTOs.UserDTO>
 
-<h1>User list</h1>
+<div class="text-center">
+<h1 class="display-4">User list</h1>
 
-<a class="btn btn-secondary" asp-action="Create" asp-controller="User">Create user</a>
+</div>
 
 <table class="table table-striped" id="users-table">
 	<thead>
@@ -10,9 +11,9 @@
 			<th>#</th>
 			<th>Name</th>
 			<th>Age</th>
-			<th>Perfil</th>
 			<th>Login</th>
 			<th>Email</th>
+			<th>Perfil</th>
 			<th>Data de cadastro</th>
 			<th></th>
 		</tr>
@@ -25,9 +26,9 @@
 				<td>@obj.Id</td>
 				<td>@obj.Name</td>
 				<td>@obj.Age</td>
-				<td>@obj.Perfil</td>
 				<td>@obj.Login</td>
 				<td>@obj.Email</td>
+				<td>@obj.Perfil</td>
 				<td>@obj.DataCadastro</td>
 				<td>
 					<a role="button" asp-route-id="@obj.Id" asp-action="Update" asp-controller="User" class="btn btn-dark">Edit</a>
@@ -37,3 +38,4 @@
 		}
 	</tbody>
 </table>
+<a class="btn btn-secondary" asp-action="Create" asp-controller="User">Create user</a>

@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<Quiz.Application.DTOs.QuestionDTO>
 
-<h1>Lista de perguntas</h1>
+<div class="text-center">
+	<h1 class="display-4">Lista de perguntas</h1>
 
-<a class="btn btn-secondary" asp-action="Create" asp-controller="Question">Create question</a>
+</div>
 
 <table class="table table-striped" id="questions-table">
 	<thead>
@@ -18,7 +19,7 @@
 		{
 			<tr>
 				<th>
-					<input disabled type="checkbox"/>
+					<input disabled type="checkbox" />
 				</th>
 				<td>@obj.Theme</td>
 				<td>@obj.Description</td>
@@ -32,3 +33,4 @@
 
 	</tbody>
 </table>
+<a class="btn btn-secondary" asp-action="Create" asp-controller="Question">Create question</a>

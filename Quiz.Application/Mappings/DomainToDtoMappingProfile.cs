@@ -10,6 +10,7 @@ namespace Quiz.Application.Mappings
         {
             CreateMap<Question, QuestionDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, LoginDTO>().ReverseMap();
         }
     }
 }

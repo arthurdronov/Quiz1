@@ -6,7 +6,7 @@
 <form method="post">
 	<div class="mb-3">
 		<label asp-for="Name"></label>
-		<input asp-for="Name" class="form-control" type="text"/>
+		<input asp-for="Name" class="form-control" type="text" />
 		<span asp-validation-for="Name" class="text-danger"></span>
 	</div>
 
@@ -35,6 +35,7 @@
 			<option value="@PerfilEnum.Admin">Administrador</option>
 			<option value="@PerfilEnum.Customer">Cliente</option>
 		</select>
+		<span asp-validation-for="Perfil" class="text-danger"></span>
 	</div>
 
 	<div class="mb-3">
@@ -44,4 +45,5 @@
 	</div>
 
 	<button class="btn btn-dark" type="submit">Create</button>
+	<a asp-action="Index" asp-controller="User" class="btn btn-secondary">Cancel</a>
 </form>

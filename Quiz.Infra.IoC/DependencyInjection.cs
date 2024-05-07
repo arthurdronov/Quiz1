@@ -22,6 +22,8 @@ namespace Quiz.Infra.IoC
             services.AddScoped<IQuestionService, QuestionService>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<ILoginRepository, LoginRepository>();
+			services.AddScoped<ILoginService, LoginService>();
 			services.AddAutoMapper(typeof(DomainToDtoMappingProfile));
 
             return services;
