@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
+using Quiz.WebUI.Filters;
 
 namespace Quiz.WebUI.Controllers
 {
-	public class QuestionController : Controller
+    [PagesLoggedUser]
+    public class QuestionController : Controller
 	{
 		private readonly IQuestionService _questionService;
 		public QuestionController(IQuestionService questionService)

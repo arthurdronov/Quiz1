@@ -2,6 +2,7 @@
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
 using Quiz.Domain.Interfaces;
+using Quiz.WebUI.Helper;
 
 namespace Quiz.Application.Services
 {
@@ -21,12 +22,12 @@ namespace Quiz.Application.Services
             return _mapper.Map<LoginDTO>(user);
         }
 
-        public async Task<bool> IsUserValid(string loginDTO, string password)
+        public async Task<bool> IsUserValid(LoginDTO loginDTO)
         {
-            var user = await _loginRepository.GetByLoginAsync(loginDTO);
+            var user = await _loginRepository.GetByLoginAsync(loginDTO.Login);
             if(user != null)
             {
-                if(user.Password == password)
+                if(user.Password == loginDTO.Password.GenerateHash())
                 {
                     return true;
                 }

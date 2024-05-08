@@ -4,9 +4,11 @@ using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
 using Quiz.Domain.Entities;
 using Quiz.Infra.Data.Context;
+using Quiz.WebUI.Filters;
 
 namespace Quiz.WebUI.Controllers
 {
+    [RestrictedPageAdmin]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

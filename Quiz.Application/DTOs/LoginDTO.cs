@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Quiz.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Quiz.Application.DTOs
 {
     public class LoginDTO
@@ -13,5 +8,10 @@ namespace Quiz.Application.DTOs
         public string Login { get; set; }
         [Required(ErrorMessage = "Password is Required")]
         public string Password { get; set; }
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public PerfilEnum Perfil { get; set; }
+        public int Age { get; set; }
     }
 }

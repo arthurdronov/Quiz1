@@ -1,5 +1,7 @@
 ﻿using Quiz.Domain.Enums;
 using Quiz.Domain.Validation;
+using Quiz.WebUI.Helper;
+using System.ComponentModel;
 
 namespace Quiz.Domain.Entities
 {
@@ -50,5 +52,9 @@ namespace Quiz.Domain.Entities
 
 		}
 
+		public void SetPasswordHash()
+		{
+			Password = Password.GenerateHash();
+		}
 	}
 }
