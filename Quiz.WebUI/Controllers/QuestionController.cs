@@ -75,6 +75,7 @@ namespace Quiz.WebUI.Controllers
 			}
 		}
 		[HttpGet]
+		[RestrictedPageAdmin]
 		public async Task<IActionResult> Update(int? id)
 		{
 			try
@@ -82,7 +83,7 @@ namespace Quiz.WebUI.Controllers
                 var question = await _questionService.GetById(id);
 				if(question == null)
 				{
-					return NotFound();
+					return NotFound();	
 				}
                 return View(question);
             }
@@ -93,6 +94,7 @@ namespace Quiz.WebUI.Controllers
 
 		}
 		[HttpPost]
+		[RestrictedPageAdmin]
 		public async Task<IActionResult> Update(QuestionDTO questionDTO)
 		{
 			try
@@ -114,12 +116,14 @@ namespace Quiz.WebUI.Controllers
 		}
 
 		[HttpGet]
+		[RestrictedPageAdmin]
 		public async Task<IActionResult> Delete(int? id)
 		{
 			var question = await _questionService.GetById(id);
 			return View(question);
 		}
 		[HttpPost, ActionName("Delete")]
+		[RestrictedPageAdmin]
 		public async Task<IActionResult> DeletePOST(int? id)
 		{
 			try
