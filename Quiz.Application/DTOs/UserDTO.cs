@@ -29,9 +29,15 @@ namespace Quiz.Application.DTOs
         public PerfilEnum Perfil { get; set; }
         [Required(ErrorMessage = "Password is Required")]
         [MinLength(3, ErrorMessage = "Min required 3 characters")]
-        [MaxLength(30, ErrorMessage = "Max limit 30 characters")]
+        [MaxLength(100, ErrorMessage = "Max limit 100 characters")]
         public string Password { get; set; }
-        public DateTime DataCadastro { get; set; }
+		public int? Score { get; set; }
+		public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
+
+        public void AddScore()
+        {
+            Score += 10;
+        }
     }
 }

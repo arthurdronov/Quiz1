@@ -45,35 +45,7 @@ namespace Quiz.WebUI.Controllers
 			}
 
 		}
-		public async Task<IActionResult> Answer(int? id)
-		{
-			var result = await _questionService.GetById(id);
-			result.Answer = null;
-			return View(result);
-		}
-		[HttpPost, ActionName("Answer")]
-		public async Task<IActionResult> Answer(QuestionDTO questionDTO)
-		{
-			try
-			{
-				var result = await _questionService.VerificaResposta(questionDTO.Id, questionDTO.Answer);
-				if (questionDTO == null)
-				{
-					return View(questionDTO);
-				}
-				if (!result)
-				{
-					TempData["error"] = "Wrong answer, try again";
-					return View(questionDTO);
-				}
-				TempData["success"] = "Right answer, Nice!";
-				return RedirectToAction("Index");
-			}
-			catch(Exception error)
-			{
-				return View($"Error question answer {error.Message}");
-			}
-		}
+
 		[HttpGet]
 		[RestrictedPageAdmin]
 		public async Task<IActionResult> Update(int? id)

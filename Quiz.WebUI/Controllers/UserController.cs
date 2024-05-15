@@ -19,6 +19,7 @@ namespace Quiz.WebUI.Controllers
         
         public async Task<IActionResult> Index()
         {
+			UserQuestionDTO userQuestion = new UserQuestionDTO();
             var users = await _userService.GetUsers();
             return View(users);
         }

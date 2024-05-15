@@ -30,7 +30,7 @@ namespace Quiz.Application.Services
             return _mapper.Map<QuestionDTO>(questionEntity);
         }
 
-        public async Task<IEnumerable<QuestionDTO>> GetQuestions()
+		public async Task<IEnumerable<QuestionDTO>> GetQuestions()
         {
             var questionsEntity = await _questionRepository.GetQuestionsAsync();
             return _mapper.Map<IEnumerable<QuestionDTO>>(questionsEntity);
@@ -46,25 +46,6 @@ namespace Quiz.Application.Services
         {
             var questionEntity = _mapper.Map<Question>(questionDto);
             await _questionRepository.UpdateAsync(questionEntity);
-        }
-
-        public async Task<bool> VerificaResposta(int? id, string answer)
-        {
-            var obj = await _questionRepository.GetByIdAsync(id);
-            bool OkAnswer = false;
-            if (id == null || id == 0)
-            {
-                throw new Exception("Invalid Id value");
-            }
-            if (string.IsNullOrEmpty(answer))
-            {
-                return OkAnswer;
-            }
-            if (obj.Answer.ToLower() == answer.ToLower())
-            {
-                OkAnswer = true;
-            }
-            return OkAnswer;
         }
     }
 }

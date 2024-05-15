@@ -17,6 +17,7 @@ namespace Quiz.Infra.Data.Repositories
         public async Task<User> CreateAsync(User user)
         {
             user.DataCadastro = DateTime.Now;
+            user.Score = 0;
             user.SetPasswordHash();
             _userContext.Users.Add(user);
             await _userContext.SaveChangesAsync();

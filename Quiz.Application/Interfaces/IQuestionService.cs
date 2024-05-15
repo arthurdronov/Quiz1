@@ -7,9 +7,8 @@ namespace Quiz.Application.Interfaces
         Task<IEnumerable<QuestionDTO>> GetQuestions();
         Task<QuestionDTO> GetById(int? id);
 
-        Task Add(QuestionDTO questionDto);
+		Task Add(QuestionDTO questionDto);
         Task Update(QuestionDTO questionDto);
         Task Remove(int? id);
-        Task<bool> VerificaResposta(int? id, string answer);
     }
 }

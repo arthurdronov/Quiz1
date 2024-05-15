@@ -1,7 +1,6 @@
 ﻿using Quiz.Domain.Enums;
 using Quiz.Domain.Validation;
 using Quiz.WebUI.Helper;
-using System.ComponentModel;
 
 namespace Quiz.Domain.Entities
 {
@@ -13,6 +12,7 @@ namespace Quiz.Domain.Entities
 		public string Email { get; set; }
 		public PerfilEnum Perfil { get; set; }
 		public string Password { get; set; }
+		public int? Score { get; set; }
 		public DateTime DataCadastro { get; set; }
 		public DateTime? DataAtualizacao { get; set; }
 
@@ -30,12 +30,12 @@ namespace Quiz.Domain.Entities
 			Age = age;
 		}
 
-        public User()
-        {
-            
-        }
+		public User()
+		{
 
-        public void VerificarModel(int id, string name, int age)
+		}
+
+		public void VerificarModel(int id, string name, int age)
 		{
 			DomainExceptionValidation.When(id < 0, "Invalid Id value");
 			DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Name is required");
@@ -56,5 +56,11 @@ namespace Quiz.Domain.Entities
 		{
 			Password = Password.GenerateHash();
 		}
+
+		public void AddScore()
+		{
+			Score += 10;
+		}
+
 	}
 }

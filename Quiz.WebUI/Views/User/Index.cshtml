@@ -13,7 +13,8 @@
 			<th>Age</th>
 			<th>Login</th>
 			<th>Email</th>
-			<th>Perfil</th>
+			<th>Role</th>
+			<th>Score</th>
 			<th>Data de cadastro</th>
 			<th></th>
 		</tr>
@@ -29,6 +30,7 @@
 				<td>@obj.Login</td>
 				<td>@obj.Email</td>
 				<td>@obj.Perfil</td>
+				<td>@obj.Score</td>
 				<td>@obj.DataCadastro</td>
 				<td>
 					<a role="button" asp-route-id="@obj.Id" asp-action="Update" asp-controller="User" class="btn btn-dark">Edit</a>
