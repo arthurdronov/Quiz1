@@ -18,9 +18,18 @@ namespace Quiz.Infra.Data.Repositories
             _userQuestionContext = userQuestionContext;
         }
 
+		public async Task AddPointsAsync(UserQuestion userQuestion)
+		{
+			var user = _userQuestionContext.Users.Find(userQuestion.User.Id);
+			user.Score += userQuestion.Question.Points;
+			_userQuestionContext.Update(user);
+			await _userQuestionContext.SaveChangesAsync();
+		}
+
 		public async Task<UserQuestion> CreateAsync(UserQuestion userQuestion)
 		{
-			_userQuestionContext.Add(userQuestion);
+			userQuestion.UserId = userQuestion.User.Id;
+			_userQuestionContext.UserQuestions.Add(userQuestion);
 			await _userQuestionContext.SaveChangesAsync();
 			return userQuestion;
 		}

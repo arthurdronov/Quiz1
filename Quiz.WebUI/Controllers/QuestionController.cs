@@ -2,6 +2,7 @@
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
 using Quiz.WebUI.Filters;
+using Quiz.WebUI.Helper;
 
 namespace Quiz.WebUI.Controllers
 {
@@ -9,7 +10,7 @@ namespace Quiz.WebUI.Controllers
     public class QuestionController : Controller
 	{
 		private readonly IQuestionService _questionService;
-		public QuestionController(IQuestionService questionService)
+		public QuestionController(IQuestionService questionService, ISessao sessao)
 		{
 			_questionService = questionService;
 		}

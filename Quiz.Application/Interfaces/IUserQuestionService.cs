@@ -10,5 +10,6 @@ namespace Quiz.Application.Interfaces
 	public interface IUserQuestionService
 	{
 		public Task Add(UserQuestionDTO userQuestionDTO);
+		public Task AddPoints(UserQuestionDTO userQuestionDTO);
 	}
 }

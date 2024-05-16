@@ -18,5 +18,6 @@ namespace Quiz.Application.DTOs
 		[MinLength(1)]
 		[MaxLength(20)]
 		public string Theme { get; set; }
+		public int Points { get; set; }
 	}
 }

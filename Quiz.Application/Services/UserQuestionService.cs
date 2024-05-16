@@ -21,5 +21,11 @@ namespace Quiz.Application.Services
 			var user = _mapper.Map<UserQuestion>(userQuestionDTO);
 			await _userQuestionRepository.CreateAsync(user);
 		}
+
+		public async Task AddPoints(UserQuestionDTO userQuestionDTO)
+		{
+			var user = _mapper.Map<UserQuestion>(userQuestionDTO);
+			await _userQuestionRepository.AddPointsAsync(user);
+		}
 	}
 }

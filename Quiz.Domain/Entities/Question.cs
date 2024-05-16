@@ -10,6 +10,7 @@ namespace Quiz.Domain.Entities
 		public string Description { get; set; }
 		public string Answer { get; set; }
 		public string Theme { get; set; }
+		public int Points { get; set; }
 
 		public Question(string description, string answer, string theme)
 		{

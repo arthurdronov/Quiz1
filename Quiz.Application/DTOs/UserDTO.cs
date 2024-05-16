@@ -35,9 +35,5 @@ namespace Quiz.Application.DTOs
 		public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
 
-        public void AddScore()
-        {
-            Score += 10;
-        }
     }
 }

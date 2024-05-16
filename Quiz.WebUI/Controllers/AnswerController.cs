@@ -11,7 +11,7 @@ namespace Quiz.WebUI.Controllers
 		private readonly IQuestionService _questionService;
 		private readonly IUserService _userService;
 		private readonly ISessao _sessao;
-		public AnswerController(IUserQuestionService userQuestionService, ISessao sessao, 
+		public AnswerController(IUserQuestionService userQuestionService, ISessao sessao,
 			IUserService userService, IQuestionService questionService)
 		{
 			_userQuestionService = userQuestionService;
@@ -20,25 +20,53 @@ namespace Quiz.WebUI.Controllers
 			_questionService = questionService;
 		}
 		[HttpGet]
-		public async Task<IActionResult> Index(int? id)
+		public async Task<IActionResult> Index(int? questionid)
 		{
-			var obj = new UserQuestionDTO 
-			{ 
+			var obj = new UserQuestionDTO
+			{
 				User = await _userService.GetById(_sessao.GetUserSession().Id),
-				Question = await _questionService.GetById(id)
+				Question = await _questionService.GetById(questionid),
 			};
 			return View(obj);
 		}
 		[HttpPost]
 		public async Task<IActionResult> Index(UserQuestionDTO userQuestionDTO)
+
 		{
-			if(userQuestionDTO.Answer.ToLower() == userQuestionDTO.Question.Answer.ToLower())
+			try
 			{
+				var question = await _questionService.GetById(userQuestionDTO.QuestionId);
+
+				if (userQuestionDTO.Answer == null)
+				{
+					TempData["error"] = "Answer is required";
+					return View(userQuestionDTO);
+				}
+				if (userQuestionDTO.Answer.ToLower() != question.Answer.ToLower())
+				{
+					TempData["error"] = "Wrong Answer! Try again.";
+					return View(userQuestionDTO);
+
+				}
 				userQuestionDTO.DidCorrect = true;
-				TempData["success"] = $"Nice, right answer!";
-				return RedirectToAction("Index", "Question");
+				//userQuestionDTO.User = await _userService.GetById(_sessao.GetUserSession().Id);
+				userQuestionDTO.UserId = (_sessao.GetUserSession().Id);
+				if (ModelState.IsValid)
+				{
+					await _userQuestionService.AddPoints(userQuestionDTO);
+					await _userQuestionService.Add(userQuestionDTO);
+					TempData["success"] = $"Nice, right answer!";
+					return RedirectToAction("Index", "Question");
+
+				}
+				TempData["error"] = "Model state is not valid";
+				return View(userQuestionDTO);
 			}
-			return View(userQuestionDTO);
+			catch
+			{
+				TempData["error"] = "An unexpected error occurred. Please try again.";
+				return View(userQuestionDTO);
+			}
 		}
 	}
 }

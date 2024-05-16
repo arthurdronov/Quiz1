@@ -11,6 +11,7 @@
 			<th></th>
 			<th>Tema</th>
 			<th>Descrição</th>
+			<th>Pontos</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -23,8 +24,9 @@
 				</th>
 				<td>@obj.Theme</td>
 				<td>@obj.Description</td>
+				<td>@obj.Points</td>
 				<td>
-					<a role="button" asp-route-id="@obj.Id" asp-action="Index" asp-controller="Answer" class="btn btn-secondary">Responder</a>
+					<a role="button" asp-route-questionid="@obj.Id" asp-action="Index" asp-controller="Answer" class="btn btn-secondary">Responder</a>
 					<a role="button" asp-route-id="@obj.Id" asp-action="Update" asp-controller="Question" class="btn btn-dark">Edit</a>
 					<a role="button" asp-route-id="@obj.Id" asp-action="Delete" asp-controller="Question" class="btn btn-danger">Delete</a>
 				</td>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Quiz.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,9 @@ namespace Quiz.Infra.Data.Context
 	{
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options):base(options)
         {
-
-        }
-
-        public DbSet<Question> Questions { get; set; }
+            
+		}
+		public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserQuestion> UserQuestions { get; set; }
     }

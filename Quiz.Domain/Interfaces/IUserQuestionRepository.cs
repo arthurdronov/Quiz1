@@ -9,6 +9,7 @@ namespace Quiz.Domain.Interfaces
 {
 	public interface IUserQuestionRepository
 	{
+		public Task AddPointsAsync(UserQuestion userQuestion);
 		public Task<UserQuestion> CreateAsync(UserQuestion userQuestion);
 		public Task<IEnumerable<UserQuestion>> GetUserQuestionsAsync();
 	}
