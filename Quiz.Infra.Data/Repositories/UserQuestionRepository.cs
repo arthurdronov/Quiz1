@@ -20,15 +20,18 @@ namespace Quiz.Infra.Data.Repositories
 
 		public async Task AddPointsAsync(UserQuestion userQuestion)
 		{
-			var user = _userQuestionContext.Users.Find(userQuestion.User.Id);
-			user.Score += userQuestion.Question.Points;
-			_userQuestionContext.Update(user);
+			var user = _userQuestionContext.Users.Find(userQuestion.UserId);
+			var question = _userQuestionContext.Questions.Find(userQuestion.QuestionId);
+			if(user != null && question != null)
+			{
+				user.Score += question.Points;
+			}
+			_userQuestionContext.Users.Update(user);
 			await _userQuestionContext.SaveChangesAsync();
 		}
 
 		public async Task<UserQuestion> CreateAsync(UserQuestion userQuestion)
 		{
-			userQuestion.UserId = userQuestion.User.Id;
 			_userQuestionContext.UserQuestions.Add(userQuestion);
 			await _userQuestionContext.SaveChangesAsync();
 			return userQuestion;
@@ -37,5 +40,12 @@ namespace Quiz.Infra.Data.Repositories
 		{
 			return await _userQuestionContext.UserQuestions.ToListAsync();
 		}
+
+		public async Task<bool> UserHasAnsweredCorrectly(int? userId, int? questionId)
+		{
+			return await _userQuestionContext.UserQuestions
+								 .AnyAsync(uq => uq.UserId == userId && uq.QuestionId == questionId && uq.DidCorrect == true);
+		}
+
 	}
 }

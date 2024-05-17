@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
 using Quiz.WebUI.Helper;
@@ -30,42 +31,50 @@ namespace Quiz.WebUI.Controllers
 			return View(obj);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Index(UserQuestionDTO userQuestionDTO)
+		public async Task<IActionResult> Index(UserQuestionDTO obj)
 
-		{
+	{
 			try
 			{
-				var question = await _questionService.GetById(userQuestionDTO.QuestionId);
+				var question = await _questionService.GetById(obj.QuestionId);
+				var user = await _userService.GetById(_sessao.GetUserSession().Id);
+				obj.UserId = user.Id;
 
-				if (userQuestionDTO.Answer == null)
+				if (obj.Answer == null)
 				{
 					TempData["error"] = "Answer is required";
-					return View(userQuestionDTO);
+					return View(obj);
 				}
-				if (userQuestionDTO.Answer.ToLower() != question.Answer.ToLower())
+				if (obj.Answer.ToLower() != question.Answer.ToLower())
 				{
+					obj.Question = question;
 					TempData["error"] = "Wrong Answer! Try again.";
-					return View(userQuestionDTO);
+					return View(obj);
 
 				}
-				userQuestionDTO.DidCorrect = true;
-				//userQuestionDTO.User = await _userService.GetById(_sessao.GetUserSession().Id);
-				userQuestionDTO.UserId = (_sessao.GetUserSession().Id);
+				obj.DidCorrect = true;
+
 				if (ModelState.IsValid)
 				{
-					await _userQuestionService.AddPoints(userQuestionDTO);
-					await _userQuestionService.Add(userQuestionDTO);
-					TempData["success"] = $"Nice, right answer!";
+					var userHasAnsweredCorrectly = await _userQuestionService.UserHasAnsweredCorrectly(obj.UserId, obj.QuestionId);
+
+					if (!userHasAnsweredCorrectly)
+					{
+						await _userQuestionService.AddPoints(obj);
+						await _userQuestionService.Add(obj);
+					}
+					TempData["success"] = $" Nice! +{question.Points} Points";
 					return RedirectToAction("Index", "Question");
 
 				}
 				TempData["error"] = "Model state is not valid";
-				return View(userQuestionDTO);
+				return View(obj);
 			}
-			catch
+			catch (Exception ex)
 			{
-				TempData["error"] = "An unexpected error occurred. Please try again.";
-				return View(userQuestionDTO);
+				throw (ex);
+				//TempData["error"] = "An unexpected error occurred. Please try again.";
+				//return View(obj);
 			}
 		}
 	}

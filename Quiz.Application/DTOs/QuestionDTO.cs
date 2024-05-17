@@ -18,6 +18,8 @@ namespace Quiz.Application.DTOs
 		[MinLength(1)]
 		[MaxLength(20)]
 		public string Theme { get; set; }
+		[Required(ErrorMessage = "Points is Required")]
+		[Range(1,50,ErrorMessage = "Range 1-50")]
 		public int Points { get; set; }
 	}
 }

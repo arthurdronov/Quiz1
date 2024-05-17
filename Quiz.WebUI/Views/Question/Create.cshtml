@@ -21,6 +21,12 @@
 		<span asp-validation-for="Theme" class="text-danger"></span>
 	</div>
 
+	<div class="mb-3">
+		<label asp-for="Points"></label>
+		<input type="text" asp-for="Points" class="form-control" />
+		<span asp-validation-for="Points" class="text-danger"></span>
+	</div>
+
 	<button class="btn btn-dark" type="submit">Create</button>
 	<a asp-action="Index" asp-controller="Question" class="btn btn-secondary">Cancel</a>
 

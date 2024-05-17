@@ -79,6 +79,10 @@ namespace Quiz.WebUI.Controllers
 			{
 				if (ModelState.IsValid)
 				{
+					if(userDTO.Score == null)
+					{
+						userDTO.Score = 0;
+					}
                     await _userService.Update(userDTO);
                     TempData["success"] = "User updated successfuly";
                     return RedirectToAction("Index");

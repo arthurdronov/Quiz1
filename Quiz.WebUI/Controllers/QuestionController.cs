@@ -10,15 +10,29 @@ namespace Quiz.WebUI.Controllers
     public class QuestionController : Controller
 	{
 		private readonly IQuestionService _questionService;
-		public QuestionController(IQuestionService questionService, ISessao sessao)
+		private readonly IUserQuestionService _userQuestionService;
+		private readonly ISessao _sessao;
+		public QuestionController(IQuestionService questionService, ISessao sessao, IUserQuestionService userQuestionService)
 		{
 			_questionService = questionService;
+			_sessao = sessao;
+			_userQuestionService = userQuestionService;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
-			var result = await _questionService.GetQuestions();
-			return View(result);
+			var questoes = await _questionService.GetQuestions();
+			var user = _sessao.GetUserSession();
+			var userAnswerStatus = new Dictionary<int, bool>();
+			foreach(var obj in questoes)
+			{
+				var userHasAnsweredCorrectly = await _userQuestionService.UserHasAnsweredCorrectly(user.Id, obj.Id);
+				userAnswerStatus[obj.Id] = userHasAnsweredCorrectly;
+			}
+			ViewBag.Checked = userAnswerStatus;
+			ViewBag.Perfil = user.Perfil;
+
+			return View(questoes);
 		}
 		public async Task<IActionResult> Create()
 		{
@@ -98,7 +112,7 @@ namespace Quiz.WebUI.Controllers
 		[HttpPost, ActionName("Delete")]
 		[RestrictedPageAdmin]
 		public async Task<IActionResult> DeletePOST(int? id)
-		{
+		 {
 			try
 			{
 				if (ModelState.IsValid)

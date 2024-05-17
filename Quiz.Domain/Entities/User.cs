@@ -29,6 +29,11 @@ namespace Quiz.Domain.Entities
 			Name = name;
 			Age = age;
 		}
+		public User(string login, string password)
+		{
+			Login = login;
+			Password = password;
+		}
 
 		public User()
 		{

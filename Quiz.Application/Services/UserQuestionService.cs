@@ -27,5 +27,11 @@ namespace Quiz.Application.Services
 			var user = _mapper.Map<UserQuestion>(userQuestionDTO);
 			await _userQuestionRepository.AddPointsAsync(user);
 		}
+
+		public async Task<bool> UserHasAnsweredCorrectly(int? userId, int? questionId)
+		{
+			var result = await _userQuestionRepository.UserHasAnsweredCorrectly(userId, questionId);
+			return result;
+		}
 	}
 }

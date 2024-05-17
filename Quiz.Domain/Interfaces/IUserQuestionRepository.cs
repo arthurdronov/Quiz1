@@ -12,5 +12,6 @@ namespace Quiz.Domain.Interfaces
 		public Task AddPointsAsync(UserQuestion userQuestion);
 		public Task<UserQuestion> CreateAsync(UserQuestion userQuestion);
 		public Task<IEnumerable<UserQuestion>> GetUserQuestionsAsync();
+		public Task<bool> UserHasAnsweredCorrectly(int? userId, int? questionId);
 	}
 }

@@ -11,5 +11,6 @@ namespace Quiz.Application.Interfaces
 	{
 		public Task Add(UserQuestionDTO userQuestionDTO);
 		public Task AddPoints(UserQuestionDTO userQuestionDTO);
+		public Task<bool> UserHasAnsweredCorrectly(int? userId, int? questionId);
 	}
 }
