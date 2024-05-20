@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<Quiz.Application.DTOs.QuestionDTO>
 
-<div class="text-center">
-	<h1 class="display-4">Lista de perguntas</h1>
+	<style>
+		.question-h1{
+			margin:24px;
+		}
+		.table-margin {
+			margin-top:40px;
+		}
+	</style>
+
+<div class="table-margin">
 
 </div>
-
 <table class="table table-striped" id="questions-table">
 	<thead>
 		<tr>
@@ -25,12 +32,12 @@
 
 				<td>@obj.Theme</td>
 				<td>@obj.Description</td>
-				<td>@obj.Points</td>
+				<td class="text-center">@obj.Points</td>
 				<td class="text-center">
-					<a role="button" asp-route-questionid="@obj.Id" asp-action="Index" asp-controller="Answer" class="btn btn-secondary">Responder</a>
+					<a role="button" asp-route-questionid="@obj.Id" asp-action="Index" asp-controller="Answer" class="btn btn-dark">Responder</a>
 					@if (ViewBag.Perfil == Quiz.Domain.Enums.PerfilEnum.Admin)
 					{
-						<a role="button" asp-route-id="@obj.Id" asp-action="Update" asp-controller="Question" class="btn btn-dark">Edit</a>
+						<a role="button" asp-route-id="@obj.Id" asp-action="Update" asp-controller="Question" class="btn btn-primary">Edit</a>
 						<a role="button" asp-route-id="@obj.Id" asp-action="Delete" asp-controller="Question" class="btn btn-danger">Delete</a>
 					}
 				</td>

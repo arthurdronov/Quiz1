@@ -1,8 +1,32 @@
-﻿@{
+﻿@model Quiz.Application.DTOs.LoginDTO
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    body {
+        overflow:hidden;
+    }
+    .text-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 85vh; /* Define a altura da div como a altura da tela */
+    }
+
+    .welcome-text {
+        margin-left: 80px; /* Altere o valor conforme necessário */
+    }
+
+    .logo-text {
+        margin-right:80px;
+    }
+
+</style>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 custom-brand logo-text" style="font-size:1000%;">QuizMe</h1>
+    <h1 class="display-4 hello-index welcome-text">Welcome, @Model.Login</h1>
 </div>

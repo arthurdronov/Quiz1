@@ -37,14 +37,16 @@ namespace Quiz.WebUI.Controllers
 			try
 			{
 				var question = await _questionService.GetById(obj.QuestionId);
-				var user = await _userService.GetById(_sessao.GetUserSession().Id);
-				obj.UserId = user.Id;
-
 				if (obj.Answer == null)
 				{
+					obj.Question = question;
 					TempData["error"] = "Answer is required";
 					return View(obj);
 				}
+
+				var user = await _userService.GetById(_sessao.GetUserSession().Id);
+				obj.UserId = user.Id;
+
 				if (obj.Answer.ToLower() != question.Answer.ToLower())
 				{
 					obj.Question = question;

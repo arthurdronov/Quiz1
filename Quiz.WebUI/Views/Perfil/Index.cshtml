@@ -1,24 +1,77 @@
 ﻿@model Quiz.Application.DTOs.UserDTO
 
-<h1 class="display-4">Perfil</h1>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Nome</th>
-			<th>Idade</th>
-			<th>Perfil</th>
-			<th>Score</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>@Model.Id</td>
-			<td>@Model.Name</td>
-			<td>@Model.Age</td>
-			<td>@Model.Perfil</td>
-			<td>@Model.Score</td>
-		</tr>
-	</tbody>
-</table>
+    .profile-container {
+        max-width: 300px;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80%; /* Define a altura da div como a altura da tela */
+        font-size:21px;
+    }
+
+    .profile-header {
+        background-color: rgb(255, 120, 80);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+        .profile-header h1 {
+            margin: 0;
+        }
+
+    .profile-info {
+        padding: 20px;
+    }
+
+        .profile-info label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-info span {
+            display: block;
+        }
+        label{
+            font-size:28px;
+            font-weight:bold;
+            font-family:'Cascadia Mono'
+        }
+        span {
+            font-family:'Pacific'
+        }
+</style>
+
+<div class="profile-container text-center">
+    <div class="profile-header">
+        <h1>Perfil</h1>
+    </div>
+    <div class="profile-info">
+        <label>Nome:</label>
+        <span>@Model.Name</span>
+    </div>
+    <div class="profile-info">
+        <label>Idade:</label>
+        <span>@Model.Age</span>
+    </div>
+    <div class="profile-info">
+        <label>Perfil:</label>
+        <span>@Model.Perfil</span>
+    </div>
+    <div class="profile-info">
+        <label>Score:</label>
+        <span>@Model.Score</span>
+    </div>
+</div>

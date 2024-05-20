@@ -21,7 +21,8 @@ namespace Quiz.WebUI.Controllers
 
 		public IActionResult Index()
 		{
-			return View();
+			var user = _sessao.GetUserSession();
+			return View(user);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

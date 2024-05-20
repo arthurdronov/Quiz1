@@ -1,27 +1,39 @@
 ﻿@model Quiz.Application.DTOs.LoginDTO
 
-<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QuizMe</a>
+<a class="navbar-brand custom-brand" asp-area="" asp-controller="Home" asp-action="Index">QuizMe</a>
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 		aria-expanded="false" aria-label="Toggle navigation">
 	<span class="navbar-toggler-icon"></span>
 </button>
-<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-	<ul class="navbar-nav flex-grow-1">
+<div class="collapse navbar-collapse justify-content-between" id="navbarColor01">
+	<!-- Adicionado 'justify-content-between' para alinhar à direita -->
+	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+			<a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
+			<a class="nav-link" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
 		</li>
 
 		@if (Model.Perfil == Quiz.Domain.Enums.PerfilEnum.Admin)
 		{
 			<li class="nav-item">
-				<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+				<a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a>
 			</li>
 		}
-
 	</ul>
-	<a class="nav-link text-success" asp-route-id="@Model.Id" asp-area="" asp-controller="Perfil" asp-action="Index">Sua conta</a>
-	<a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="Logout">Sair</a>
+	<ul class="navbar-nav">
+		<!-- Nova lista para os itens à direita -->
+		<li class="nav-item">
+			<a class="btn btn-primary nav-link active" asp-route-id="@Model.Id" asp-area="" asp-controller="Perfil" asp-action="Index">
+				<i class="bi bi-person-circle"></i> Sua conta
+				</a>
+		</li>
+
+		<li class="nav-item mx-2">
+			<a class="btn btn-danger nav-link active" asp-area="" asp-controller="Login" asp-action="Logout">
+				<i class="bi bi-box-arrow-left"></i> Sair
+				</a>
+		</li>
+	</ul>
 </div>
