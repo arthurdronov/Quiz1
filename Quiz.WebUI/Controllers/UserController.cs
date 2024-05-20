@@ -1,28 +1,27 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Quiz.Application.DTOs;
 using Quiz.Application.Interfaces;
-using Quiz.Domain.Entities;
-using Quiz.Infra.Data.Context;
 using Quiz.WebUI.Filters;
 
 namespace Quiz.WebUI.Controllers
 {
-    [RestrictedPageAdmin]
-    public class UserController : Controller
-    {
-        private readonly IUserService _userService;
-        public UserController(IUserService userService)
-        {
-            _userService = userService;
-        }
-        
-        public async Task<IActionResult> Index()
-        {
+	[RestrictedPageAdmin]
+	public class UserController : Controller
+	{
+		private readonly IUserService _userService;
+		private readonly IUserQuestionService _userQuestionService;
+		public UserController(IUserService userService, IUserQuestionService userQuestionService)
+		{
+			_userService = userService;
+			_userQuestionService = userQuestionService;
+		}
+
+		public async Task<IActionResult> Index()
+		{
 			UserQuestionDTO userQuestion = new UserQuestionDTO();
-            var users = await _userService.GetUsers();
-            return View(users);
-        }
+			var users = await _userService.GetUsers();
+			return View(users);
+		}
 
 		[HttpGet]
 		public IActionResult Create()
@@ -30,11 +29,11 @@ namespace Quiz.WebUI.Controllers
 			return View();
 		}
 
-        [HttpPost, ActionName("Create")]
+		[HttpPost, ActionName("Create")]
 		public async Task<IActionResult> Create(UserDTO user)
-        {
-            try
-            {
+		{
+			try
+			{
 				if (ModelState.IsValid)
 				{
 					await _userService.Add(user);
@@ -46,11 +45,11 @@ namespace Quiz.WebUI.Controllers
 				TempData["error"] = "Error for create a user";
 				return View(user);
 			}
-            catch
-            {
+			catch
+			{
 				TempData["error"] = "Error for create a user";
 				return View(user);
-            }
+			}
 		}
 
 		[HttpGet]
@@ -58,13 +57,13 @@ namespace Quiz.WebUI.Controllers
 		{
 			try
 			{
-                var user = await _userService.GetById(id);
-				if(user == null)
+				var user = await _userService.GetById(id);
+				if (user == null)
 				{
 					return NotFound();
 				}
-                return View(user);
-            }
+				return View(user);
+			}
 			catch
 			{
 
@@ -79,28 +78,28 @@ namespace Quiz.WebUI.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-					if(userDTO.Score == null)
+					if (userDTO.Score == null)
 					{
 						userDTO.Score = 0;
 					}
-                    await _userService.Update(userDTO);
-                    TempData["success"] = "User updated successfuly";
-                    return RedirectToAction("Index");
-                }
-                TempData["error"] = "Error edit a user";
-                return View(userDTO);
+					await _userService.Update(userDTO);
+					TempData["success"] = "User updated successfuly";
+					return RedirectToAction("Index");
+				}
+				TempData["error"] = "Error edit a user";
+				return View(userDTO);
 			}
 			catch
 			{
-                TempData["error"] = "Error edit a user";
-                return View(userDTO);
+				TempData["error"] = "Error edit a user";
+				return View(userDTO);
 			}
 
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
-		
+
 		{
 			var resultado = await _userService.GetById(id);
 			return View(resultado);
@@ -108,6 +107,7 @@ namespace Quiz.WebUI.Controllers
 		[HttpPost, ActionName("Delete")]
 		public async Task<IActionResult> DeletePOST(int? id)
 		{
+			await _userQuestionService.RemoveUserRelation(id);
 			await _userService.Remove(id);
 			TempData["success"] = "User deleted successfuly";
 			return RedirectToAction("Index");

@@ -36,6 +36,50 @@ namespace Quiz.Infra.Data.Repositories
 			await _userQuestionContext.SaveChangesAsync();
 			return userQuestion;
 		}
+
+		public async Task<UserQuestion> DeleteAsync(UserQuestion userQuestion)
+		{
+			_userQuestionContext.UserQuestions.Remove(userQuestion);
+			await _userQuestionContext.SaveChangesAsync();
+			return userQuestion;
+		}
+
+		public async Task DeleteQuestionRelationAsync(int? id)
+		{
+			if (id != null)
+			{
+				if (id != null)
+				{
+					var result = await _userQuestionContext.UserQuestions
+						.Where(c => c.QuestionId == id)
+						.ToListAsync();
+
+					_userQuestionContext.RemoveRange(result);
+
+					await _userQuestionContext.SaveChangesAsync();
+				}
+			}
+		}
+
+		public async Task DeleteUserRelationAsync(int? id)
+		{
+			if(id != null)
+			{
+				var result = await _userQuestionContext.UserQuestions
+					.Where(c => c.UserId == id)
+					.ToListAsync();
+
+				_userQuestionContext.RemoveRange(result);
+
+				await _userQuestionContext.SaveChangesAsync();
+			}
+		}
+
+		public async Task<UserQuestion> GetByIdAsync(int? id)
+		{
+			return await _userQuestionContext.UserQuestions.FindAsync(id);
+		}
+
 		public async Task<IEnumerable<UserQuestion>> GetUserQuestionsAsync()
 		{
 			return await _userQuestionContext.UserQuestions.ToListAsync();

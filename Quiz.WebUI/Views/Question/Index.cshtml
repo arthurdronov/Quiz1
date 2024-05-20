@@ -1,16 +1,20 @@
 ﻿@model IEnumerable<Quiz.Application.DTOs.QuestionDTO>
 
-	<style>
-		.question-h1{
-			margin:24px;
-		}
-		.table-margin {
-			margin-top:40px;
-		}
-	</style>
+<style>
+	.question-h1 {
+		margin: 24px;
+	}
+
+	.table-margin {
+		margin-top: 40px;
+	}
+
+	.checked-label {
+		color:gray;
+	}
+</style>
 
 <div class="table-margin">
-
 </div>
 <table class="table table-striped" id="questions-table">
 	<thead>
@@ -27,7 +31,8 @@
 		{
 			<tr>
 				<td>
-					<input type="checkbox" disabled @(ViewBag.Checked[obj.Id] ? "checked" : "") />
+					<input id="checkbox_@(obj.Id)" type="checkbox" disabled @(ViewBag.Checked[obj.Id] ? "checked" : "") />
+					<label class="checked-label">@(ViewBag.Checked[obj.Id] ? "Respondida" : "Não-Respondida")</label>
 				</td>
 
 				<td>@obj.Theme</td>

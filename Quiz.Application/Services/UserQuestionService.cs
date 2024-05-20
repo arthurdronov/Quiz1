@@ -28,6 +28,24 @@ namespace Quiz.Application.Services
 			await _userQuestionRepository.AddPointsAsync(user);
 		}
 
+		public async Task Remove(int? id)
+		{
+			var user = await _userQuestionRepository.GetByIdAsync(id);
+			await _userQuestionRepository.DeleteAsync(user);
+			
+		}
+
+		public async Task RemoveQuestionRelation(int? id)
+		{
+			await _userQuestionRepository.DeleteQuestionRelationAsync(id);
+		}
+
+		public async Task RemoveUserRelation(int? id)
+		{
+			await _userQuestionRepository.DeleteUserRelationAsync(id);
+
+		}
+
 		public async Task<bool> UserHasAnsweredCorrectly(int? userId, int? questionId)
 		{
 			var result = await _userQuestionRepository.UserHasAnsweredCorrectly(userId, questionId);

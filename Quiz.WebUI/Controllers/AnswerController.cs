@@ -33,7 +33,7 @@ namespace Quiz.WebUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Index(UserQuestionDTO obj)
 
-	{
+		{
 			try
 			{
 				var question = await _questionService.GetById(obj.QuestionId);
@@ -64,8 +64,11 @@ namespace Quiz.WebUI.Controllers
 					{
 						await _userQuestionService.AddPoints(obj);
 						await _userQuestionService.Add(obj);
+						TempData["success"] = $" Nice! +{question.Points} Points";
+						return RedirectToAction("Index", "Question");
+
 					}
-					TempData["success"] = $" Nice! +{question.Points} Points";
+					TempData["success"] = $" Nice!";
 					return RedirectToAction("Index", "Question");
 
 				}

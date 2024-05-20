@@ -118,7 +118,10 @@ namespace Quiz.WebUI.Controllers
 				if (ModelState.IsValid)
 				{
 					if (id != null && id > 0)
+					{
+						await _userQuestionService.RemoveQuestionRelation(id);
 						await _questionService.Remove(id);
+					}
 					TempData["success"] = "Question deleted successfuly";
 					return RedirectToAction("Index");
 				}

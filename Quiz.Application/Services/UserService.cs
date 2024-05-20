@@ -37,7 +37,7 @@ namespace Quiz.Application.Services
 
         public async Task Remove(int? id)
         {
-            var userEntity = _userRepository.GetByIdAsync(id).Result;
+            var userEntity = await _userRepository.GetByIdAsync(id);
             await _userRepository.RemoveAsync(userEntity);
         }
 
